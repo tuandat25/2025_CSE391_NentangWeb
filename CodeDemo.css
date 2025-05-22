@@ -1,0 +1,277 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    transition: all 0.3s ease;
+}
+
+.app {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+}
+
+/* Header đơn giản */
+.header {
+    background: #4a90e2;
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.theme-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Nội dung chính */
+.main {
+    padding: 30px 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    font-size: 20px;
+    border-bottom: 2px solid #4a90e2;
+    padding-bottom: 5px;
+}
+
+.section h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Box container đơn giản */
+.box {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.box p {
+    margin-bottom: 10px;
+}
+
+.box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Hiển thị kích thước cửa sổ */
+.size-display {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.size-item {
+    text-align: center;
+    background: #4a90e2;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 120px;
+}
+
+.size-label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.size-value {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+/* Thông tin thiết bị */
+.device-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.device-info span {
+    font-weight: bold;
+    color: #4a90e2;
+}
+
+/* Tip box */
+.tip {
+    background: #e3f2fd;
+    border: 1px solid #bbdefb;
+    border-radius: 5px;
+    padding: 12px;
+    text-align: center;
+    font-style: italic;
+    color: #222;
+}
+
+/* Navigation đơn giản */
+.nav {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    color: #4a90e2;
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #4a90e2;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: #4a90e2;
+    color: white;
+}
+
+/* Responsive content */
+.responsive-content {
+    background: #fff3e0;
+    border: 1px solid #ffcc02;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+}
+
+.responsive-content p {
+    margin-bottom: 10px;
+    color: black;
+}
+
+.responsive-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Footer đơn giản */
+.footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Dark theme */
+body.dark {
+    background-color: #222;
+    color: #fff;
+}
+
+body.dark .app {
+    background: #333;
+}
+
+body.dark .box {
+    background: #444;
+    border-color: #555;
+    color: #fff;
+}
+
+body.dark .section h2 {
+    color: #7bb3f0;
+    border-bottom-color: #7bb3f0;
+}
+
+body.dark .nav-link {
+    color: #7bb3f0;
+    border-color: #7bb3f0;
+}
+
+body.dark .nav-link:hover {
+    background: #7bb3f0;
+    color: #333;
+}
+
+body.dark .device-info span {
+    color: #7bb3f0;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 20px;
+    }
+    
+    .main {
+        padding: 20px 15px;
+    }
+    
+    .size-display {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav {
+        justify-content: center;
+    }
+    
+    .nav-link {
+        flex: 1;
+        text-align: center;
+        min-width: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section h2 {
+        font-size: 18px;
+    }
+    
+    .size-value {
+        font-size: 20px;
+    }
+    
+    .nav {
+        flex-direction: column;
+    }
+    
+    .nav-link {
+        text-align: center;
+    }
+}

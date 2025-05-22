@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Context API & Custom Hooks Demo</title>
+    <link rel="stylesheet" href="CodeDemo.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Header đơn giản -->
+        <header class="header">
+            <h1>Context API & Custom Hooks Demo</h1>
+            <button id="themeToggle" class="theme-btn">
+                <span id="themeIcon">🌙</span>
+                <span id="themeText">Chế độ tối</span>
+            </button>
+        </header>
+
+        <!-- Nội dung chính -->
+        <main class="main">
+            <!-- Demo Theme Context -->
+            <section class="section">
+                <h2>1. Theme Context (Chuyển đổi giao diện)</h2>
+                <div class="box">
+                    <p>Giao diện hiện tại: <strong id="currentTheme">Sáng</strong></p>
+                    <p>Màu nền: <strong id="bgColor">#ffffff</strong></p>
+                    <p>Màu chữ: <strong id="textColor">#333333</strong></p>
+                </div>
+            </section>
+
+            <!-- Demo Custom Hook -->
+            <section class="section">
+                <h2>2. useWindowSize Hook (Kích thước cửa sổ)</h2>
+                <div class="box">
+                    <div class="size-display">
+                        <div class="size-item">
+                            <div class="size-label">Chiều rộng</div>
+                            <div id="windowWidth" class="size-value">1920px</div>
+                        </div>
+                        <div class="size-item">
+                            <div class="size-label">Chiều cao</div>
+                            <div id="windowHeight" class="size-value">1080px</div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-info">
+                        <p>Loại thiết bị: <span id="deviceType">Desktop</span> <span id="deviceIcon">🖥️</span></p>
+                    </div>
+
+                    <div class="tip">
+                        💡 Thay đổi kích thước cửa sổ để xem cập nhật realtime!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Demo Components -->
+            <section class="section">
+                <h2>3. Components sử dụng Context & Hooks</h2>
+                
+                <!-- Navigation đơn giản -->
+                <div class="box">
+                    <h3>Navigation Component</h3>
+                    <nav class="nav"></nav>
+                        <a href="#" class="nav-link">Trang chủ</a>
+                        <a href="#" class="nav-link">Giới thiệu</a>
+                        <a href="#" class="nav-link">Dịch vụ</a>
+                        <a href="#" class="nav-link">Liên hệ</a>
+                    </nav>
+                </div>
+
+                <!-- Content responsive -->
+                <div class="box">
+                    <h3>Responsive Content</h3>
+                    <div id="responsiveContent" class="responsive-content">
+                        <p>Nội dung này thay đổi theo kích thước màn hình!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer đơn giản -->
+        <footer class="footer">
+            <p>© 2024 Context API & Custom Hooks Demo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme Context đơn giản
+        let currentTheme = 'light';
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            updateThemeUI();
+        }
+
+        function updateThemeUI() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+            const currentThemeSpan = document.getElementById('currentTheme');
+            const bgColor = document.getElementById('bgColor');
+            const textColor = document.getElementById('textColor');
+
+            if (currentTheme === 'dark') {
+                body.classList.add('dark');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Chế độ sáng';
+                currentThemeSpan.textContent = 'Tối';
+                bgColor.textContent = '#222222';
+                textColor.textContent = '#ffffff';
+            } else {
+                body.classList.remove('dark');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Chế độ tối';
+                currentThemeSpan.textContent = 'Sáng';
+                bgColor.textContent = '#ffffff';
+                textColor.textContent = '#333333';
+            }
+        }
+
+        // Custom Hook useWindowSize đơn giản
+        function updateWindowSize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // Cập nhật hiển thị kích thước
+            document.getElementById('windowWidth').textContent = width + 'px';
+            document.getElementById('windowHeight').textContent = height + 'px';
+            
+            // Xác định loại thiết bị
+            let deviceType, deviceIcon;
+            if (width < 768) {
+                deviceType = 'Mobile';
+                deviceIcon = '📱';
+            } else if (width < 1024) {
+                deviceType = 'Tablet';
+                deviceIcon = '📟';
+            } else {
+                deviceType = 'Desktop';
+                deviceIcon = '🖥️';
+            }
+            
+            document.getElementById('deviceType').textContent = deviceType;
+            document.getElementById('deviceIcon').textContent = deviceIcon;
+            
+            // Cập nhật nội dung responsive
+            const responsiveContent = document.getElementById('responsiveContent');
+            if (width < 768) {
+                responsiveContent.innerHTML = `
+                    <p><strong>📱 Giao diện Mobile</strong></p>
+                    <p>Hiển thị tối ưu cho điện thoại (${width}px)</p>
+                `;
+            } else if (width < 1024) {
+                responsiveContent.innerHTML = `
+                    <p><strong>📟 Giao diện Tablet</strong></p>
+                    <p>Hiển thị tối ưu cho máy tính bảng (${width}px)</p>
+                `;
+            } else {
+                responsiveContent.innerHTML = `
+                    <p><strong>🖥️ Giao diện Desktop</strong></p>
+                    <p>Hiển thị tối ưu cho máy tính (${width}px)</p>
+                `;
+            }
+        }
+
+        // Khởi tạo khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Khởi tạo theme
+            updateThemeUI();
+            
+            // Khởi tạo window size
+            updateWindowSize();
+            
+            // Lắng nghe sự kiện
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+            window.addEventListener('resize', updateWindowSize);
+        });
+    </script>
+</body>
+</html>

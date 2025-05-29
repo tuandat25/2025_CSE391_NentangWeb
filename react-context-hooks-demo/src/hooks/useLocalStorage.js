@@ -1,36 +1,29 @@
+// src/hooks/useLocalStorage.js
 import { useState, useEffect } from 'react';
 
-/**
- * Custom hook to persist state in localStorage
- * @param {string} key - The localStorage key
- * @param {any} initialValue - The initial value if key doesn't exist in localStorage
- * @returns {[any, Function]} - A stateful value and a function to update it
- */
 function useLocalStorage(key, initialValue) {
-  // Create state based on value from localStorage or initialValue
+  // Khởi tạo state với hàm callback để tránh đọc localStorage mỗi khi render
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      // Get from localStorage by key
+      // Kiểm tra xem có dữ liệu trong localStorage không
       const item = window.localStorage.getItem(key);
-      // Parse stored json or return initialValue if none
+      // Parse JSON nếu có, nếu không thì dùng initialValue
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      // If error, return initialValue
       console.error(`Error reading localStorage key "${key}":`, error);
       return initialValue;
     }
   });
 
-  // Update localStorage when state changes
+  // Dùng useEffect để cập nhật localStorage khi state thay đổi
   useEffect(() => {
     try {
-      // Save state to localStorage
+      // Lưu state vào localStorage
       window.localStorage.setItem(key, JSON.stringify(storedValue));
     } catch (error) {
-      // Log errors in case of issues
       console.error(`Error setting localStorage key "${key}":`, error);
     }
-  }, [key, storedValue]);
+  }, [key, storedValue]); // Chạy lại effect khi key hoặc storedValue thay đổi
 
   return [storedValue, setStoredValue];
 }

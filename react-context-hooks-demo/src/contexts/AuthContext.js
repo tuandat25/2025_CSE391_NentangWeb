@@ -11,7 +11,6 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   // Use our custom hook to persist auth state in localStorage
   const [user, setUser] = useLocalStorage('user', null);
-
   // Login function - in a real app, this would validate credentials
   const login = (username) => {
     // Simple validation
@@ -19,8 +18,12 @@ export function AuthProvider({ children }) {
       return false;
     }
     
-    // Set user info - in a real app, this would include more data
-    setUser({ username });
+    // Set user info with login time
+    setUser({ 
+      username: username.trim(),
+      loginTime: new Date().toISOString(),
+      sessionId: Math.random().toString(36).substr(2, 9)
+    });
     return true;
   };
 
